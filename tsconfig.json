@@ -5,7 +5,6 @@
     "moduleResolution": "Node",
     "removeComments": true,
     "baseUrl": "./src",
-    "outDir": "./lib",
-    "declaration": true
+    "outDir": "./",
   }
 }
