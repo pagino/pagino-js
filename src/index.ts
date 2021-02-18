@@ -140,5 +140,3 @@ class Pagino {
 }
 
 export default Pagino;
-
-// https://github1s.com/mui-org/material-ui/blob/HEAD/packages/material-ui/src/usePagination/usePagination.js

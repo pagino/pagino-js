@@ -1,7 +1,7 @@
 ## Pagino
 A Class for handle pagination's logic in Javascript independent of UI
 
-### Install
+## Install
 ```bash
 npm i pagino-js
 ```
@@ -33,7 +33,7 @@ pagino
 
 ## Options:
 
-All values in blow is default
+All values in below is default
 ```js
 const pagino = new Pagino({
   showFirst: true,
