@@ -1,0 +1,37 @@
+{
+  "name": "pagino-js",
+  "version": "0.0.0",
+  "description": "This project aims to handle pagination core object in Javascript independent of UI",
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest --watch",
+    "format": "prettier ./src --write --ignore-unknown",
+    "preversion": "npm run test && npm run format",
+    "version": "npm run build",
+    "postversion": "git push && git push --tags && npm publish"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pagino/pagino-js.git"
+  },
+  "keywords": [
+    "Pagination"
+  ],
+  "author": "Behnam Mohammadi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pagino/pagino-js/issues"
+  },
+  "homepage": "https://github.com/pagino/pagino-js#readme",
+  "devDependencies": {
+    "@babel/core": "^7.12.16",
+    "@babel/preset-env": "^7.12.16",
+    "@babel/preset-typescript": "^7.12.16",
+    "@types/jest": "^26.0.20",
+    "babel-jest": "^26.6.3",
+    "jest": "^26.6.3",
+    "prettier": "^2.2.1",
+    "typescript": "^4.1.5"
+  }
+}

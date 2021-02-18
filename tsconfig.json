@@ -1,0 +1,10 @@
+{
+  "exclude": ["node_modules", "src/**/*.test.ts"],
+  "compilerOptions": {
+    "target": "ES2015",
+    "moduleResolution": "Node",
+    "removeComments": true,
+    "baseUrl": "./src",
+    "outDir": "./lib"
+  }
+}
