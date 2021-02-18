@@ -15,10 +15,15 @@ import Pagino from 'pagino-js';
 const pagino = new Pagino();
 pagino.setCount(10);
 pagino.setPage(1);
-
 pagino.getPages();
 /**
  * ['first', 'previous', 1, 2, 3, 4, 5, 'end-ellipsis', 10, 'next', 'last']
+ */
+
+pagino.setPage(5);
+pagino.getPages();
+/**
+ * ['first', 'previous', 1,'start-ellipsis', 4, 5, 6, 'end-ellipsis', 10, 'next', 'last']
  */
 ```
 
