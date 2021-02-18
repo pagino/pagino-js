@@ -97,7 +97,7 @@ const expects = [
   {
     input: { count: 10, page: 11 },
     //prettier-ignore
-    output: ['first', 'previous', 1,'start-ellipsis', 6, 7, 8, 9, 10, 'next', 'last'],
+    output: ['first', 'previous', 1, 2, 3, 4, 5, 'end-ellipsis', 10, 'next', 'last'],
   },
 ];
 

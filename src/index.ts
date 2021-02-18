@@ -48,48 +48,45 @@ interface Config {
   boundaryCount?: number;
 }
 
-class Pagino {
-  page: number;
-  count: number;
-  siblingCount: number;
-  boundaryCount: number;
+interface Pagino {
+  setCount(count: number): Pagino;
+  setPage(page: number): Pagino;
+  getPages(): Array<number | string>;
+}
 
-  showFirst: boolean = true;
-  showPrevious: boolean = true;
-  showNext: boolean = true;
-  showLast: boolean = true;
+function Pagino({
+  showFirst = true,
+  showPrevious = true,
+  showNext = true,
+  showLast = true,
+  siblingCount = 1,
+  boundaryCount = 1,
+}: Config = {}) {
+  this.showFirst = showFirst;
+  this.showPrevious = showPrevious;
+  this.showNext = showNext;
+  this.showLast = showLast;
+  this.siblingCount = siblingCount;
+  this.boundaryCount = boundaryCount;
 
-  constructor({
-    showFirst = true,
-    showPrevious = true,
-    showNext = true,
-    showLast = true,
-    siblingCount = 1,
-    boundaryCount = 1,
-  }: Config = {}) {
-    this.showFirst = showFirst;
-    this.showPrevious = showPrevious;
-    this.showNext = showNext;
-    this.showLast = showLast;
-    this.siblingCount = siblingCount;
-    this.boundaryCount = boundaryCount;
-  }
+  this.page = 1;
+  this.count;
 
-  setCount(count: number) {
+  this.setCount = (count: number) => {
     this.count = count;
     return this;
-  }
+  };
 
-  setPage(page: number) {
+  this.setPage = function (page: number) {
     if (page <= 0 || page > this.count) {
       return this;
     }
 
     this.page = page;
     return this;
-  }
+  };
 
-  getPages(): Array<number | string> {
+  this.getPages = (): Array<number | string> => {
     const startPages = createStartPages(this.boundaryCount, this.count);
     const endPages = createEndPages(this.boundaryCount, this.count);
 
@@ -108,35 +105,32 @@ class Pagino {
       endPages
     );
 
-    return [
-      ...(this.showFirst ? ['first'] : []),
-      ...(this.showPrevious ? ['previous'] : []),
-      ...startPages,
+    let pages = [];
 
-      // Start ellipsis
-      // eslint-disable-next-line no-nested-ternary
-      ...(siblingsStart > this.boundaryCount + 2
+    pages = pages.concat(this.showFirst ? ['first'] : []);
+    pages = pages.concat(this.showPrevious ? ['previous'] : []);
+    pages = pages.concat(startPages);
+    pages = pages.concat(
+      siblingsStart > this.boundaryCount + 2
         ? ['start-ellipsis']
         : this.boundaryCount + 1 < this.count - this.boundaryCount
         ? [this.boundaryCount + 1]
-        : []),
-
-      // Sibling pages
-      ...createRange(siblingsStart, siblingsEnd),
-
-      // End ellipsis
-      // eslint-disable-next-line no-nested-ternary
-      ...(siblingsEnd < this.count - this.boundaryCount - 1
+        : []
+    );
+    pages = pages.concat(createRange(siblingsStart, siblingsEnd));
+    pages = pages.concat(
+      siblingsEnd < this.count - this.boundaryCount - 1
         ? ['end-ellipsis']
         : this.count - this.boundaryCount > this.boundaryCount
         ? [this.count - this.boundaryCount]
-        : []),
+        : []
+    );
+    pages = pages.concat(endPages);
+    pages = pages.concat(this.showNext ? ['next'] : []);
+    pages = pages.concat(this.showLast ? ['last'] : []);
 
-      ...endPages,
-      ...(this.showNext ? ['next'] : []),
-      ...(this.showLast ? ['last'] : []),
-    ];
-  }
+    return pages;
+  };
 }
 
 export default Pagino;
