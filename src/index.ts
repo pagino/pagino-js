@@ -59,6 +59,8 @@ function Pagino({
   showPrevious = true,
   showNext = true,
   showLast = true,
+  page = 1,
+  count,
   siblingCount = 1,
   boundaryCount = 1,
 }: Config = {}) {
@@ -69,8 +71,8 @@ function Pagino({
   this.siblingCount = siblingCount;
   this.boundaryCount = boundaryCount;
 
-  this.page = 1;
-  this.count;
+  this.page = page;
+  this.count = count;
 
   this.setCount = (count: number) => {
     this.count = count;

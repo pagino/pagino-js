@@ -15,6 +15,6 @@ interface Pagino {
     getPages(): Array<number | string>;
 }
 
-declare function Pagino({ showFirst, showPrevious, showNext, showLast, siblingCount, boundaryCount, }?: Config): Pagino;
+declare function Pagino({ showFirst, showPrevious, showNext, showLast, page, count, siblingCount, boundaryCount, }?: Config): Pagino;
 
 export default Pagino;
