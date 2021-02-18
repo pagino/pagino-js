@@ -1,6 +1,6 @@
 {
   "name": "pagino-js",
-  "version": "0.0.2-0",
+  "version": "0.0.3-0",
   "description": "This project aims to handle pagination core object in Javascript independent of UI",
   "main": "index.js",
   "scripts": {
