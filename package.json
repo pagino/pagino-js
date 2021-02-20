@@ -1,6 +1,6 @@
 {
   "name": "pagino",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "This project aims to handle pagination core object in Javascript independent of UI",
   "main": "index.cjs",
   "type": "module",
