@@ -46,6 +46,8 @@ interface Config {
   count?: number;
   siblingCount?: number;
   boundaryCount?: number;
+
+  onChange?: (page: number, count: number) => void;
 }
 
 interface Pagino {
@@ -63,6 +65,7 @@ function Pagino({
   count,
   siblingCount = 1,
   boundaryCount = 1,
+  onChange = () => {},
 }: Config = {}) {
   this.showFirst = showFirst;
   this.showPrevious = showPrevious;
@@ -70,12 +73,15 @@ function Pagino({
   this.showLast = showLast;
   this.siblingCount = siblingCount;
   this.boundaryCount = boundaryCount;
+  this.onChange = onChange;
 
   this.page = page;
   this.count = count;
 
   this.setCount = (count: number) => {
     this.count = count;
+
+    onChange(this.page, this.count);
     return this;
   };
 
@@ -85,6 +91,8 @@ function Pagino({
     }
 
     this.page = page;
+
+    onChange(this.page, this.count);
     return this;
   };
 

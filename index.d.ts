@@ -7,6 +7,7 @@ interface Config {
   count?: number;
   siblingCount?: number;
   boundaryCount?: number;
+  onChange?: (page: number, count: number) => void;
 }
 
 interface Pagino {
@@ -26,6 +27,7 @@ declare function Pagino({
   count,
   siblingCount,
   boundaryCount,
+  onChange,
 }?: Config): Pagino;
 
 export default Pagino;

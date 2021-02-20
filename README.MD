@@ -59,6 +59,18 @@ pagino.next();
 pagino.previous();
 ```
 
+## Event
+You can listen to change page and count
+```js
+const pagino = new Pagino({
+  ...
+  onChange: (page, count) => {
+    console.log(page, count)
+  },
+  ...
+});
+```
+
 
 ## Use in Deno
 ```js

@@ -126,18 +126,41 @@ test(`Test next and previous method`, () => {
   pagino.next().next().next().next();
   expect(pagino.getPages()).toEqual(
     //prettier-ignore
-    ['first', 'previous', 1,'start-ellipsis', 4, 5, 6, 'end-ellipsis', 15, 'next', 'last'],
+    ['first', 'previous', 1,'start-ellipsis', 4, 5, 6, 'end-ellipsis', 15, 'next', 'last']
   );
 
   pagino.setPage(14).next().next();
   expect(pagino.getPages()).toEqual(
     //prettier-ignore
-    ['first', 'previous', 1,'start-ellipsis', 11, 12, 13, 14, 15, 'next', 'last'],
+    ['first', 'previous', 1,'start-ellipsis', 11, 12, 13, 14, 15, 'next', 'last']
   );
 
   pagino.previous().previous().previous().previous().previous().previous();
   expect(pagino.getPages()).toEqual(
     //prettier-ignore
-    ['first', 'previous', 1,'start-ellipsis', 8, 9, 10, 'end-ellipsis', 15, 'next', 'last'],
+    ['first', 'previous', 1,'start-ellipsis', 8, 9, 10, 'end-ellipsis', 15, 'next', 'last']
   );
+});
+
+test(`Test onChange method`, () => {
+  let expectedPage, expectedCount;
+
+  const pagino = new Pagino({
+    onChange: (page, count) => {
+      expectedPage = page;
+      expectedCount = count;
+    },
+  });
+
+  pagino.setCount(30).setPage(1);
+
+  pagino.next();
+  expect(expectedPage).toBe(2);
+  expect(expectedCount).toBe(30);
+
+  pagino.previous();
+  expect(expectedPage).toBe(1);
+
+  pagino.setCount(40);
+  expect(expectedCount).toBe(40);
 });
