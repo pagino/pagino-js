@@ -52,6 +52,13 @@ const pagino = new Pagino({
 });
 ```
 
+## Navigate
+You can use `next` and `previous` method instead of `setPage`
+```js
+pagino.next();
+pagino.previous();
+```
+
 
 ## Use in Deno
 ```js

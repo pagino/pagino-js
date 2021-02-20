@@ -88,6 +88,16 @@ function Pagino({
     return this;
   };
 
+  this.next = function () {
+    this.setPage(this.page + 1);
+    return this;
+  };
+
+  this.previous = function () {
+    this.setPage(this.page - 1);
+    return this;
+  };
+
   this.getPages = (): Array<number | string> => {
     const startPages = createStartPages(this.boundaryCount, this.count);
     const endPages = createEndPages(this.boundaryCount, this.count);

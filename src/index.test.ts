@@ -109,3 +109,35 @@ expects.forEach(({ input, output }) => {
     );
   });
 });
+
+test(`Test next and previous method`, () => {
+  const pagino = new Pagino();
+  expect(pagino.setCount(15).setPage(1).getPages()).toEqual(
+    //prettier-ignore
+    ['first', 'previous', 1, 2, 3, 4, 5, 'end-ellipsis', 15, 'next', 'last']
+  );
+
+  pagino.previous();
+  expect(pagino.setCount(15).setPage(1).getPages()).toEqual(
+    //prettier-ignore
+    ['first', 'previous', 1, 2, 3, 4, 5, 'end-ellipsis', 15, 'next', 'last']
+  );
+
+  pagino.next().next().next().next();
+  expect(pagino.getPages()).toEqual(
+    //prettier-ignore
+    ['first', 'previous', 1,'start-ellipsis', 4, 5, 6, 'end-ellipsis', 15, 'next', 'last'],
+  );
+
+  pagino.setPage(14).next().next();
+  expect(pagino.getPages()).toEqual(
+    //prettier-ignore
+    ['first', 'previous', 1,'start-ellipsis', 11, 12, 13, 14, 15, 'next', 'last'],
+  );
+
+  pagino.previous().previous().previous().previous().previous().previous();
+  expect(pagino.getPages()).toEqual(
+    //prettier-ignore
+    ['first', 'previous', 1,'start-ellipsis', 8, 9, 10, 'end-ellipsis', 15, 'next', 'last'],
+  );
+});
