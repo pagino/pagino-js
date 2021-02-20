@@ -16,7 +16,7 @@
   "scripts": {
     "build-commonjs": "tsc --target ES5 && mv ./index.js ./index.cjs",
     "build-esmodule": "tsc --target ES2020",
-    "build": "build-commonjs && build-esmodule",
+    "build": "npm run build-commonjs && npm run build-esmodule",
     "test": "jest",
     "minify": "minify ./index.js --out-file ./index.js --mangle.keepClassName",
     "format": "prettier ./src --write --ignore-unknown",
