@@ -18,7 +18,7 @@
     "build-esmodule": "tsc --target ES2020",
     "build": "npm run build-commonjs && npm run build-esmodule",
     "test": "jest",
-    "minify": "minify ./index.js --out-file ./index.js --mangle.keepClassName",
+    "minify": "minify ./index.cjs --out-file ./index.cjs --mangle.keepClassName",
     "format": "prettier ./src --write --ignore-unknown",
     "preversion": "npm run test && npm run format",
     "version": "npm run build && npm run minify",
