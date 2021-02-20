@@ -51,3 +51,9 @@ const pagino = new Pagino({
   boundaryCount: 1,
 });
 ```
+
+
+## Use in Deno
+```js
+import Pagino from 'https://raw.githubusercontent.com/pagino/pagino-js/main/src/index.ts';
+```
