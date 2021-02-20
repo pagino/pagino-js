@@ -112,13 +112,15 @@ expects.forEach(({ input, output }) => {
 
 test(`Test next and previous method`, () => {
   const pagino = new Pagino();
-  expect(pagino.setCount(15).setPage(1).getPages()).toEqual(
+  pagino.setCount(15).setPage(1)
+
+  expect(pagino.getPages()).toEqual(
     //prettier-ignore
     ['first', 'previous', 1, 2, 3, 4, 5, 'end-ellipsis', 15, 'next', 'last']
   );
 
   pagino.previous();
-  expect(pagino.setCount(15).setPage(1).getPages()).toEqual(
+  expect(pagino.getPages()).toEqual(
     //prettier-ignore
     ['first', 'previous', 1, 2, 3, 4, 5, 'end-ellipsis', 15, 'next', 'last']
   );
