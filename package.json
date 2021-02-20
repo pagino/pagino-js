@@ -2,9 +2,21 @@
   "name": "pagino",
   "version": "1.0.0",
   "description": "This project aims to handle pagination core object in Javascript independent of UI",
-  "main": "index.js",
+  "main": "index.cjs",
+  "type": "module",
+  "module": "index.js",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "require": "./index.cjs",
+      "import": "./index.js"
+    }
+  },
+  "types": "index.d.ts",
   "scripts": {
-    "build": "tsc",
+    "build-commonjs": "tsc --target ES5 && mv ./index.js ./index.cjs",
+    "build-esmodule": "tsc --target ES2020",
+    "build": "build-commonjs && build-esmodule",
     "test": "jest",
     "minify": "minify ./index.js --out-file ./index.js --mangle.keepClassName",
     "format": "prettier ./src --write --ignore-unknown",
