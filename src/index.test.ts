@@ -144,6 +144,28 @@ test(`Test next and previous method`, () => {
   );
 });
 
+test(`Test first and last method`, () => {
+  const pagino = new Pagino();
+  pagino.setCount(15).setPage(1);
+
+  expect(pagino.getPages()).toEqual(
+    //prettier-ignore
+    ['first', 'previous', 1, 2, 3, 4, 5, 'end-ellipsis', 15, 'next', 'last']
+  );
+
+  pagino.last();
+  expect(pagino.getPages()).toEqual(
+    //prettier-ignore
+    ['first', 'previous', 1,'start-ellipsis', 11, 12, 13, 14, 15, 'next', 'last']
+  );
+
+  pagino.first();
+  expect(pagino.getPages()).toEqual(
+    //prettier-ignore
+    ['first', 'previous', 1, 2, 3, 4, 5, 'end-ellipsis', 15, 'next', 'last']
+  );
+});
+
 test(`Test onChange method`, () => {
   let expectedPage, expectedCount;
 

@@ -53,10 +53,12 @@ const pagino = new Pagino({
 ```
 
 ## Navigate
-You can use `next` and `previous` method instead of `setPage`
+You can use `next`, `previous`, `first`, `last` method instead of `setPage`
 ```js
 pagino.next();
 pagino.previous();
+pagino.first();
+pagino.last();
 ```
 
 ## Event

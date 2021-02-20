@@ -15,6 +15,8 @@ interface Pagino {
   setPage(page: number): Pagino;
   next(): Pagino;
   previous(): Pagino;
+  first(): Pagino;
+  last(): Pagino;
   getPages(): Array<number | string>;
 }
 
