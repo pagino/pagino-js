@@ -99,14 +99,12 @@ function Pagino({
   this.first = function () {
     this.setPage(1);
 
-    onChange(this.page, this.count);
     return this;
   };
 
   this.last = function () {
     this.setPage(this.count);
 
-    onChange(this.page, this.count);
     return this;
   };
 
