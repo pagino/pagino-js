@@ -112,7 +112,7 @@ expects.forEach(({ input, output }) => {
 
 test(`Test next and previous method`, () => {
   const pagino = new Pagino();
-  pagino.setCount(15).setPage(1)
+  pagino.setCount(15).setPage(1);
 
   expect(pagino.getPages()).toEqual(
     //prettier-ignore
