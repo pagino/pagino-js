@@ -1,14 +1,14 @@
 ## Pagino
-A Class for handle pagination's logic in Javascript independent of UI
+Pagino is a JavaScript class designed to handle pagination logic independently.
 
-## Install
+## Installation
 ```bash
 npm i pagino
 ```
 
-## How work
+## How It Works
 
-## Basic:
+## Basic Usage:
 ```js
 import Pagino from 'pagino';
 
@@ -27,8 +27,8 @@ pagino.getPages();
  */
 ```
 
-## Chain mode:
-You can call all methods as chain
+## Chain Mode:
+You can chain multiple methods together
 ```js
 pagino
   .setCount(10)
@@ -38,7 +38,7 @@ pagino
 
 ## Options:
 
-All values in below is default
+The following values are the default options
 ```js
 const pagino = new Pagino({
   showFirst: true,
@@ -53,7 +53,7 @@ const pagino = new Pagino({
 ```
 
 ## Navigate
-You can use `next`, `previous`, `first`, `last` method instead of `setPage`
+Instead of using `setPage`, you can use the `next`, `previous`, `first`, and `last` methods:
 ```js
 pagino.next();
 pagino.previous();
@@ -62,7 +62,7 @@ pagino.last();
 ```
 
 ## Event
-You can listen to change page and count
+You can listen for `page` and `count` changes
 ```js
 const pagino = new Pagino({
   ...
@@ -74,7 +74,7 @@ const pagino = new Pagino({
 ```
 
 
-## Use in Deno
+## Using with Deno
 ```js
 import Pagino from 'https://raw.githubusercontent.com/pagino/pagino-js/main/src/index.ts';
 ```
