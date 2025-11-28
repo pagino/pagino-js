@@ -41,84 +41,90 @@ interface Config {
   showPrevious?: boolean;
   showNext?: boolean;
   showLast?: boolean;
-
   page?: number;
   count?: number;
   siblingCount?: number;
   boundaryCount?: number;
-
   onChange?: (page: number, count: number) => void;
 }
 
-interface Pagino {
-  setCount(count: number): Pagino;
-  setPage(page: number): Pagino;
-  getPages(): Array<number | string>;
-}
+class Pagino {
+  private showFirst: boolean;
+  private showPrevious: boolean;
+  private showNext: boolean;
+  private showLast: boolean;
+  private siblingCount: number;
+  private boundaryCount: number;
+  private onChange: (page: number, count: number) => void;
+  private page: number;
+  private count: number | undefined;
 
-function Pagino({
-  showFirst = true,
-  showPrevious = true,
-  showNext = true,
-  showLast = true,
-  page = 1,
-  count,
-  siblingCount = 1,
-  boundaryCount = 1,
-  onChange = () => {},
-}: Config = {}) {
-  this.showFirst = showFirst;
-  this.showPrevious = showPrevious;
-  this.showNext = showNext;
-  this.showLast = showLast;
-  this.siblingCount = siblingCount;
-  this.boundaryCount = boundaryCount;
-  this.onChange = onChange;
-
-  this.page = page;
-  this.count = count;
-
-  this.setCount = (count: number) => {
+  constructor({
+    showFirst = true,
+    showPrevious = true,
+    showNext = true,
+    showLast = true,
+    page = 1,
+    count,
+    siblingCount = 1,
+    boundaryCount = 1,
+    onChange = () => {},
+  }: Config = {}) {
+    this.showFirst = showFirst;
+    this.showPrevious = showPrevious;
+    this.showNext = showNext;
+    this.showLast = showLast;
+    this.siblingCount = siblingCount;
+    this.boundaryCount = boundaryCount;
+    this.onChange = onChange;
+    this.page = page;
     this.count = count;
+  }
 
-    onChange(this.page, this.count);
-    return this;
-  };
-
-  this.setPage = function (page: number) {
-    if (page <= 0 || page > this.count) {
+  setCount(count: number): Pagino {
+    if (count <= 0) {
+      console.warn('Count must be a positive number');
       return this;
     }
+    this.count = count;
+    this.onChange(this.page, this.count);
+    return this;
+  }
 
+  setPage(page: number): Pagino {
+    if (!this.count || page <= 0 || page > this.count) {
+      return this;
+    }
     this.page = page;
-
-    onChange(this.page, this.count);
+    this.onChange(this.page, this.count);
     return this;
-  };
+  }
 
-  this.first = function () {
+  first(): Pagino {
     this.setPage(1);
-
     return this;
-  };
+  }
 
-  this.last = function () {
-    this.setPage(this.count);
-
+  last(): Pagino {
+    this.setPage(this.count!);
     return this;
-  };
+  }
 
-  this.next = function () {
+  next(): Pagino {
     this.setPage(this.page + 1);
     return this;
-  };
+  }
 
-  this.previous = function () {
+  previous(): Pagino {
     this.setPage(this.page - 1);
     return this;
-  };
+  }
 
-  this.getPages = (): Array<number | string> => {
+  getPages(): Array<number | string> {
+    if (!this.count) {
+      return [];
+    }
+
     const startPages = createStartPages(this.boundaryCount, this.count);
     const endPages = createEndPages(this.boundaryCount, this.count);
 
@@ -137,32 +143,44 @@ function Pagino({
       endPages
     );
 
-    let pages = [];
+    const pages: Array<number | string> = [];
 
-    pages = pages.concat(this.showFirst ? ['first'] : []);
-    pages = pages.concat(this.showPrevious ? ['previous'] : []);
-    pages = pages.concat(startPages);
-    pages = pages.concat(
-      siblingsStart > this.boundaryCount + 2
-        ? ['start-ellipsis']
-        : this.boundaryCount + 1 < this.count - this.boundaryCount
-        ? [this.boundaryCount + 1]
-        : []
-    );
-    pages = pages.concat(createRange(siblingsStart, siblingsEnd));
-    pages = pages.concat(
-      siblingsEnd < this.count - this.boundaryCount - 1
-        ? ['end-ellipsis']
-        : this.count - this.boundaryCount > this.boundaryCount
-        ? [this.count - this.boundaryCount]
-        : []
-    );
-    pages = pages.concat(endPages);
-    pages = pages.concat(this.showNext ? ['next'] : []);
-    pages = pages.concat(this.showLast ? ['last'] : []);
+    this.addIfCondition(pages, this.showFirst, 'first');
+    this.addIfCondition(pages, this.showPrevious, 'previous');
+    pages.push(...startPages);
+
+    if (siblingsStart > this.boundaryCount + 2) {
+      pages.push('start-ellipsis');
+    } else if (
+      this.boundaryCount + 1 < this.count - this.boundaryCount
+    ) {
+      pages.push(this.boundaryCount + 1);
+    }
+
+    pages.push(...createRange(siblingsStart, siblingsEnd));
+
+    if (siblingsEnd < this.count - this.boundaryCount - 1) {
+      pages.push('end-ellipsis');
+    } else if (this.count - this.boundaryCount > this.boundaryCount) {
+      pages.push(this.count - this.boundaryCount);
+    }
+
+    pages.push(...endPages);
+    this.addIfCondition(pages, this.showNext, 'next');
+    this.addIfCondition(pages, this.showLast, 'last');
 
     return pages;
-  };
+  }
+
+  private addIfCondition(
+    pages: Array<number | string>,
+    condition: boolean,
+    value: string
+  ): void {
+    if (condition) {
+      pages.push(value);
+    }
+  }
 }
 
 export default Pagino;
